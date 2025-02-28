@@ -1,0 +1,299 @@
+!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>TEAM-SB</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      .row::after {
+        content: "";
+        clear: both;
+        display: table;
+      }
+      
+      h3 {
+  font-size: 15px;   
+        
+      }
+
+      .column {
+        float: left;
+        width: 100%;
+        padding: 10px;
+      }
+      @media screen and (min-width: 600px) {
+        .column {
+          width: 50%;
+        }
+      }
+    </style>
+    <style>
+		body {
+			background-color: black;
+			height: 100vh;
+			margin: 0;
+			overflow: hidden;
+		}
+
+		.star {
+			position: absolute;
+			top: 0;
+			width: 2px;
+			height: 2px;
+			background-color: rgba(255,255,255,0.5);
+			border-radius: 50%;
+			opacity: 0;
+			animation: star 0.5s linear infinite;
+		}
+
+		@keyframes star {
+			from {
+				transform: translate(0, -50px);
+				opacity: 1;
+			}
+			to {
+				transform: translate(0, calc(100vh + 50px));
+				opacity: 0;
+			}
+		}
+
+		/* Background Video */
+		#bg-video {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			opacity: 0.5;
+			z-index: -1;
+		}
+
+		/* Off Music Button */
+		#off-music {
+			position: fixed;
+			top: 10px;
+			right: 20px;
+			background-color: #00BFFF;
+			color: white;
+			border: none;
+			padding: 10px 20px;
+			cursor: pointer;
+			border-radius: 5px;
+			font-size: 16px;
+			z-index: 10;
+		}
+
+		#off-music:hover {
+			background-color: #1E90FF;
+		}
+
+		/* Profile Circle Image */
+		.profile-pic {
+			border-radius: 50%;
+			width: 200px;
+			height: 200px;
+			object-fit: cover;
+		}
+	</style>
+	<div class="stars-container">
+	    <!-- Create 1000 stars using JavaScript -->
+	</div>
+	<script>
+		// Create 1000 stars and append them to the stars-container div
+		const starsContainer = document.querySelector('.stars-container');
+		for (let i = 0; i < 1000; i++) {
+			const star = document.createElement('div');
+			star.classList.add('star');
+			star.style.left = `${Math.random() * 100}%`;
+			star.style.animationDelay = `${Math.random()}s`;
+			starsContainer.appendChild(star);
+		}
+
+		// Play music
+		const audio = new Audio("https://cdn.glitch.global/4c7de95e-bb1a-4b26-b80a-24d7e39a8c32/song-mc.m4a?v=1736355182762
+");
+		audio.loop = true;
+		audio.play();
+
+		// Turn off music function
+		document.getElementById("off-music").onclick = function() {
+			audio.pause();
+		};
+	</script>
+  <style>
+    #profile {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 50px;
+      }
+      
+      h1 {
+        font-size: 25px;
+        margin-bottom: 25px;
+        text-align: center;
+        color: #FF10F0;
+      }
+      
+      p {
+        margin-bottom: 20px;
+        line-height: 1.5;
+      }
+      
+      #typing {
+        display: inline-block;
+        color: #FFFFFF;
+      }
+      
+      #cursor {
+        display: inline-block;
+        margin-left: 5px;
+        animation: blink .7s infinite;
+      }
+      
+      @keyframes blink {
+        0% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+
+      .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+      
+      img {
+        display: block;
+        margin: 0 auto;
+        max-width: 100%;
+        height: auto;
+      }
+  </style>
+</head>
+<body>
+  <!-- Background video -->
+  <video id="bg-video" autoplay muted loop>
+    <source src="https://cdn.glitch.global/5f42d6d3-bd5f-488a-b042-addebc3424eb/main.mp4?v=1736347512970" type="video/mp4">
+  </video>
+
+  <!-- Off Music Button -->
+  <button id="off-music">Off Music</button>
+
+  <!-- Profile Section -->
+  <div style="text-align:center;">
+    <img src="https://cdn.glitch.global/7e2ac59b-b172-4272-a0e8-607fb6645190/BAIJID%20(1).png?v=1736351778463" alt="Head profile picture" class="profile-pic">
+  </div>
+  
+  <div id="profile">
+    <h1>Hi! I'm BAIJID <br>
+    <span id="typing"></span><span>_</span></h1>
+  </div>
+
+  <script defer>
+    const words = ["|BAIJID ", "|Student", "|Developer", "|one said lover", "|anime lover"];
+    const typing = document.getElementById("typing");
+    let currentWordIndex = 0;
+    let currentLetterIndex = 0;
+    let isDeleting = false;
+
+    function type() {
+        const currentWord = words[currentWordIndex];
+
+        if (!isDeleting) {
+            typing.innerHTML = currentWord.substring(0, currentLetterIndex + 1);
+            currentLetterIndex++;
+
+            if (currentLetterIndex === currentWord.length) {
+                isDeleting = true;
+                setTimeout(type, 1000);
+            } else {
+                setTimeout(type, 100);
+            }
+        } else {
+            typing.innerHTML = currentWord.substring(0, currentLetterIndex - 1);
+            currentLetterIndex--;
+
+            if (currentLetterIndex === 0) {
+                isDeleting = false;
+                currentWordIndex++;
+                if (currentWordIndex === words.length) {
+                    currentWordIndex = 0;
+                }
+            }
+
+            setTimeout(type, 100);
+        }
+    }
+
+    type();
+  </script>
+
+  <!-- Button Container -->
+  <style>
+    .button-container {
+        text-align: center;
+    }
+
+    .facebook-button {
+        display: inline-block;
+        padding: 10px 80px;
+        background-color: #0096FF;
+        border-radius: 25px;
+        color: #fff;
+        font-weight: bold;
+        text-decoration: none;
+        box-shadow: 0px 0px 15px #0096FF;
+        transition: box-shadow 0.3s ease-in-out;
+    }
+
+    .facebook-button:hover {
+        box-shadow: 0px 0px 25px #0096FF;
+    }
+  </style>
+  <div class="button-container">
+    <a href="https://www.facebook.com/profile.php?id=61558155404215&mibextid=ZbWKwL" target="_blank" class="facebook-button">Facebook</a>
+  </div><br>
+  
+  <style>
+    .button-container {
+        text-align: center;
+    }
+
+    .telegram-button {
+        display: inline-block;
+        padding: 10px 50px;
+        background-color: #0088cc;
+        border-radius: 25px;
+        color: #fff;
+        font-weight: bold;
+        text-decoration: none;
+        box-shadow: 0px 0px 15px #0088cc;
+        transition: box-shadow 0.3s ease-in-out;
+    }
+
+    .telegram-button:hover {
+        box-shadow: 0px 0px 25px #0088cc;
+    }
+  </style>
+  <div class="button-container">
+    <a href="https://t.me/+x-0WOYEz8sRhNjE1" target="_blank" class="telegram-button">Telegram channel</a>
+  </div><br>
+
+  <footer>
+    <center>
+      <h3 style="color:red;">MD BAIJID ALAM  🥴 2025</h3>
+    </center>
+  </footer>
+</body>
+</html>
